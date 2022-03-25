@@ -1,7 +1,7 @@
 {
-    "name": "@chelsea-apps/template",
-    "version": "0.0.1",
-    "description": "Template for Chelsea Apps NestJS packages",
+    "name": "@chelsea-apps/notification",
+    "version": "2.1.0",
+    "description": "Notifications libraries for Chelsea Apps projects, providing email, SMS and push notification support",
     "main": "dist/index",
     "types": "dist/index",
     "scripts": {
@@ -19,12 +19,23 @@
         "registry": "https://npm.pkg.github.com"
     },
     "dependencies": {
-        "@nestjsplus/dyn-schematics": "^1.0.12"
+        "@aws-sdk/client-sns": "^3.16.0",
+        "@nestjsplus/dyn-schematics": "^1.0.12",
+        "@parse/node-apn": "^4.1.1",
+        "ical-generator": "^2.2.0",
+        "nodemailer": "^6.6.1",
+        "standard-version": "^9.3.0"
     },
     "devDependencies": {
-        "@types/node": "^15.0.2",
+        "@types/bull": "^3.15.1",
+        "@types/faker": "^5.5.5",
+        "@types/jest": "^26.0.23",
+        "@types/luxon": "^1.27.0",
+        "@types/node": "^15.12.2",
+        "@types/nodemailer": "^6.4.1",
         "@typescript-eslint/eslint-plugin": "^4.22.1",
         "@typescript-eslint/parser": "^4.22.1",
+        "dayjs": "^1.10.5",
         "eslint": "^7.26.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-config-standard": "^16.0.2",
@@ -37,12 +48,19 @@
         "husky": "^6.0.0",
         "jest": "^26.6.3",
         "lint-staged": "^10.5.4",
+        "moment": "^2.29.1",
+        "moment-timezone": "^0.5.33",
         "prettier": "^2.2.1",
         "rimraf": "^3.0.2",
-        "typescript": "^4.2.4"
+        "rrule": "^2.6.8",
+        "typescript": "^4.5.5"
     },
     "peerDependencies": {
+        "@nestjs/bull": "^0.5.2",
         "@nestjs/common": "^8.4.0",
+        "@nestjs/testing": "^8.4.0",
+        "bull": "^4.7.0",
+        "faker": "^5.5.3",
         "rxjs": "^7.4.0",
         "winston": "^3.6.0"
     },
