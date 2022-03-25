@@ -1,49 +1,67 @@
-Notification
-Send email, SMS and push* notifications to users on Chelsea Apps projects.
+# Notification
 
-Push notifications are not yet implemented
+Send email, SMS and push\* notifications to users on Chelsea Apps projects.
 
-Installation
+> Push notifications are not yet implemented
+
+### Installation
+
 The project is hosted on our private npm registry, so to install simply run
 
-npm
+##### npm
+
+```bash
 npm i @chelseaapps/notification
-yarn
+```
+
+##### yarn
+
+```bash
 yarn add @chelseaapps/notification
-Requirements
+```
+
+### Requirements
+
 The Email, SMS and Push methods are all sent using a separate process, via Redis. You must have a Redis server running locally on the default host & port (for now, will add Redis config parameters to the options in the future).
 
-Configuration
+### Configuration
+
 The module can be imported either globally or restricted to a single module scope. The default option is global, as this allows the module to be used across multiple modules without having to configure it multiple times.
 
-Config options
-Option	Description	Example
-isGlobal	Register the module globally across all modules in the app	true
-email > host	SMTP email host	email-smtp.eu-west-2.amazonaws.com
-email > port	SMTP email port	465
-email > user	SMTP user	AKIAZQJAQWWNH7QEHL4O
-email > password	SMTP password	****
-email > from	'From' details for email headers	"Chelsea Apps" ben@chelsea-apps.com
-sms > aws > region	AWS region used for SNS	eu-west-2
-sms > aws > accessKeyId	AWS access key ID with SNS IAM privileges	AKIAZQJAQWWNEGDK5YGP
-sms > aws > secretAccessKey	Corresponding AWS secret key	****
-sms > sender	SMS sender ID (max 12 characters)	FExchange
-sms > messageType	Type of message being sent (Transactional or Promotional)	Transactional
+#### Config options
+
+| Option                      | Description                                                | Example                             |
+| --------------------------- | ---------------------------------------------------------- | ----------------------------------- |
+| isGlobal                    | Register the module globally across all modules in the app | true                                |
+| email > host                | SMTP email host                                            | email-smtp.eu-west-2.amazonaws.com  |
+| email > port                | SMTP email port                                            | 465                                 |
+| email > user                | SMTP user                                                  | AKIAZQJAQWWNH7QEHL4O                |
+| email > password            | SMTP password                                              | \*\*\*\*                            |
+| email > from                | 'From' details for email headers                           | "Chelsea Apps" ben@chelsea-apps.com |
+| sms > aws > region          | AWS region used for SNS                                    | eu-west-2                           |
+| sms > aws > accessKeyId     | AWS access key ID with SNS IAM privileges                  | AKIAZQJAQWWNEGDK5YGP                |
+| sms > aws > secretAccessKey | Corresponding AWS secret key                               | \*\*\*\*                            |
+| sms > sender                | SMS sender ID (max 12 characters)                          | FExchange                           |
+| sms > messageType           | Type of message being sent (Transactional or Promotional)  | Transactional                       |
+
 The module can be configured in two ways:
 
-Regular
-Asynchronous
-Regular config
-Import the module into the module in which you wish to register, and call the static register function.
+-   Regular
+-   Asynchronous
 
+#### Regular config
+
+Import the module into the module in which you wish to register, and call the static `register` function.
+
+```typescript
 import { Module } from '@nestjs/common';
 import { NotificationModule } from '@chelseaapps/notification';
 
 @Module({
-    imports: [
+	imports: [
         ... other imports here
-        NotificationModule.register({
-            isGlobal: true,
+		NotificationModule.register({
+			isGlobal: true,
             email: {
                 host: "",
                 port: 465,
@@ -60,15 +78,19 @@ import { NotificationModule } from '@chelseaapps/notification';
                 sender: "",
                 messageType: "",
             },
-        }),
-    ],
-    controllers: [],
-    providers: [],
+		}),
+	],
+	controllers: [],
+	providers: [],
 })
 export class AppModule {}
-Asynchronous config
+```
+
+#### Asynchronous config
+
 The module can also be registered asynchronously to create the module dynamically, fetching configuration details from an external source (such as an environment variable).
 
+```typescript
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { NotificationModule } from '@chelseaapps/notification';
@@ -103,24 +125,31 @@ import { NotificationModule } from '@chelseaapps/notification';
     providers: [],
 })
 export class AppModule {}
-Usage
+```
+
+### Usage
+
 Import the NotificationService into a module using the Nest depedency injection mechanism.
 
+```typescript
 import { NotificationService} from "@chelseaapps/notification"
 
 @Injectable()
 export class UserService {
-    constructor(
-        private notificationService: NotificationService,
-    ) {}
+	constructor(
+		private notificationService: NotificationService,
+	) {}
 
     ...
     async test() {
         await this.notificationService.send(new TestNotification())
     }
 }
-Where TestNotification is a class extending the INotification interface (see below).
+```
 
+Where `TestNotification` is a class extending the `INotification` interface (see below).
+
+```typescript
 import { INotification, NotificationMethod } from '@chelseaapps/notification';
 
 class TestNotification implements INotification {
@@ -173,12 +202,19 @@ class TestNotification implements INotification {
         return mjml2html(template);
     }
 }
-Mustache & MJML
-Normally we use Mustache to template emails and MJML to compile to HTML. This makes it easier to send personalised, responsive emails. However these are not required. The NotificationService expects the body or emailBody parameters to be plain text or HTML, so any templating and email markup libraries can be used (provided they compile to HTML).
+```
 
-Documentation
-Detailed documentation of the methods can be found in the documentation folder. They can be hosted locally by running
+#### Mustache & MJML
 
+Normally we use Mustache to template emails and MJML to compile to HTML. This makes it easier to send personalised, responsive emails. However these are not required.
+The `NotificationService` expects the `body` or `emailBody` parameters to be plain text or HTML, so any templating and email markup libraries can be used (provided they compile to HTML).
+
+### Documentation
+
+Detailed documentation of the methods can be found in the `documentation` folder. They can be hosted locally by running
+
+```bash
 npx serve
-from the documentation folder, and are also hosted on the Chelsea Apps Gitbook.
+```
 
+from the `documentation` folder, and are also hosted on the [Chelsea Apps Gitbook](https://docs.chelsea-apps.com/libraries/notification).
