@@ -8,6 +8,7 @@ import { INotification, NotificationMethod } from './interfaces/notification.int
 import { ISMSPayload } from './sms/sms.interface';
 import { IEmailPayload } from './email/email.interface';
 import { IPushPayload } from './push/push.interface';
+import { ICustomPayload } from './custom/custom.interface';
 
 interface INotificationService {
     send(notification: INotification): Promise<void>;
@@ -21,6 +22,7 @@ export class NotificationService implements INotificationService {
         @InjectQueue('email') private emailQueue: Queue,
         @InjectQueue('sms') private smsQueue: Queue,
         @InjectQueue('push') private pushQueue: Queue,
+        @InjectQueue('custom') private customQueue: Queue,
     ) {}
 
     /**
@@ -56,7 +58,7 @@ export class NotificationService implements INotificationService {
 
         // Send email if enabled
         if (
-            notification.methods.includes(NotificationMethod.Email) &&
+            this.isMethodEnabled(notification, NotificationMethod.Email) &&
             this._NotificationOptions.email.enabled !== false
         ) {
             if (
@@ -66,16 +68,7 @@ export class NotificationService implements INotificationService {
                 throw new Error('No notification subject/body given');
             }
 
-            const emailAddresses = to.map((user) => user.email).filter((email) => email) as string[];
-
-            // Format queue payload
-            const payload: IEmailPayload = {
-                to: emailAddresses,
-                subject: notification.subject!,
-                body: notification.emailBody ?? notification.body ?? '',
-                from: notification.from ?? this._NotificationOptions.email.from,
-                calendar: notification.calendar,
-            };
+            const payload = this.buildEmailPayload(to, notification, this._NotificationOptions.email.from);
 
             this._NotificationOptions.logger?.debug('Sending email', {
                 payload: {
@@ -90,7 +83,7 @@ export class NotificationService implements INotificationService {
 
         // Send push notification if enabled
         if (
-            notification.methods.includes(NotificationMethod.Push) &&
+            this.isMethodEnabled(notification, NotificationMethod.Push) &&
             this._NotificationOptions.push.enabled !== false
         ) {
             if (
@@ -103,18 +96,7 @@ export class NotificationService implements INotificationService {
                 throw new Error('No notification category given');
             }
 
-            const deviceTokens = to.map((user) => user?.deviceToken).filter((token) => token) as string[];
-
-            const payload: IPushPayload = {
-                to: deviceTokens,
-                alert: {
-                    title: notification.subject,
-                    subtitle: notification.subtitle,
-                    body: notification.pushBody ?? notification.body ?? '',
-                },
-                options: notification.pushOptions!,
-                payload: notification.pushPayload,
-            };
+            const payload = this.buildPushPayload(to, notification);
 
             this._NotificationOptions.logger?.debug('Sending push notification', {
                 payload,
@@ -125,18 +107,15 @@ export class NotificationService implements INotificationService {
         }
 
         // Send SMS notification if enabled
-        if (notification.methods.includes(NotificationMethod.SMS) && this._NotificationOptions.sms.enabled !== false) {
+        if (
+            this.isMethodEnabled(notification, NotificationMethod.SMS) &&
+            this._NotificationOptions.sms.enabled !== false
+        ) {
             if (!this.isTextGiven(notification.body) && !this.isTextGiven(notification.smsBody)) {
                 throw new Error('No notification body given');
             }
 
-            const mobileNumbers = to.map((user) => user.phone).filter((phone) => phone) as string[];
-
-            // Format queue payload
-            const payload: ISMSPayload = {
-                to: mobileNumbers,
-                message: notification.smsBody ?? notification.body ?? '',
-            };
+            const payload = this.buildSmsPayload(to, notification);
 
             this._NotificationOptions.logger?.debug('Sending SMS', {
                 payload,
@@ -145,9 +124,88 @@ export class NotificationService implements INotificationService {
             // Add to queue to be sent
             await this.smsQueue.add(payload);
         }
+
+        // Forward notification to any custom handlers, only if explicitly enabled
+        if (
+            this.isMethodEnabled(notification, NotificationMethod.Custom) &&
+            this._NotificationOptions.custom.enabled === true
+        ) {
+            const payload: ICustomPayload = {
+                email: this.buildEmailPayload(to, notification),
+                push: this.buildPushPayload(to, notification),
+                sms: this.buildSmsPayload(to, notification),
+                data: notification.data,
+            };
+
+            this._NotificationOptions.logger?.debug('Sending to custom handler', {
+                payload,
+            });
+
+            await this.customQueue.add(payload);
+        }
+    }
+
+    private isMethodEnabled(notification: INotification, method: NotificationMethod) {
+        return notification.methods.includes(NotificationMethod.Email);
     }
 
     private isTextGiven(text?: string | null): boolean {
         return !!(text && text.trim().length > 0);
+    }
+
+    /**
+     * Build email consumer payload
+     * @param to Users to send to
+     * @param notification Notification payload
+     * @param from From email, if applicable
+     * @returns Payload object
+     */
+    private buildEmailPayload(to: INotificationUser[], notification: INotification, from?: string): IEmailPayload {
+        const emailAddresses = to.map((user) => user.email).filter((email) => email) as string[];
+
+        // Format queue payload
+        return {
+            to: emailAddresses,
+            subject: notification.subject!,
+            body: notification.emailBody ?? notification.body ?? '',
+            from: notification.from ?? from,
+            calendar: notification.calendar,
+        };
+    }
+
+    /**
+     * Build push consumer payload
+     * @param to Users to send to
+     * @param notification Notification payload
+     * @returns Payload object
+     */
+    private buildPushPayload(to: INotificationUser[], notification: INotification): IPushPayload {
+        const deviceTokens = to.map((user) => user?.deviceToken).filter((token) => token) as string[];
+
+        return {
+            to: deviceTokens,
+            alert: {
+                title: notification.subject,
+                subtitle: notification.subtitle,
+                body: notification.pushBody ?? notification.body ?? '',
+            },
+            options: notification.pushOptions!,
+            payload: notification.pushPayload,
+        };
+    }
+
+    /**
+     * Build SMS consumer payload
+     * @param to Users to send to
+     * @param notification Notification payload
+     * @returns Payload object
+     */
+    private buildSmsPayload(to: INotificationUser[], notification: INotification): ISMSPayload {
+        const mobileNumbers = to.map((user) => user.phone).filter((phone) => phone) as string[];
+
+        return {
+            to: mobileNumbers,
+            message: notification.smsBody ?? notification.body ?? '',
+        };
     }
 }

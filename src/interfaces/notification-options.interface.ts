@@ -1,4 +1,5 @@
 import { Logger } from 'winston';
+import { ICustomOptions } from './custom-options.interface';
 import { IEmailOptions } from './email-options.interface';
 import { IPushOptions } from './push-options.interface';
 import { ISMSOptions } from './sms-options.interface';
@@ -26,4 +27,9 @@ export interface NotificationOptions {
      * Push notification configuration
      */
     push: IPushOptions;
+    /**
+     * Custom notification configuration
+     * Disabled by default
+     */
+    custom?: ICustomOptions;
 }
