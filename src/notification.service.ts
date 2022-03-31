@@ -136,6 +136,7 @@ export class NotificationService implements INotificationService {
             this._NotificationOptions.custom.enabled === true
         ) {
             const payload: ICustomPayload = {
+                to,
                 email: this.buildEmailPayload(to, notification),
                 push: this.buildPushPayload(to, notification),
                 sms: this.buildSmsPayload(to, notification),
