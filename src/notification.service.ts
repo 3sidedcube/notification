@@ -125,6 +125,11 @@ export class NotificationService implements INotificationService {
             await this.smsQueue.add(payload);
         }
 
+        console.log(
+            this.isMethodEnabled(notification, NotificationMethod.Custom),
+            this._NotificationOptions.custom.enabled,
+        );
+
         // Forward notification to any custom handlers, only if explicitly enabled
         if (
             this.isMethodEnabled(notification, NotificationMethod.Custom) &&
