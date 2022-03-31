@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0-beta.2](https://github.com/chelsea-apps/notification/compare/v2.2.0-beta.1...v2.2.0-beta.2) (2022-03-31)
+
+
+### Bug Fixes
+
+* Fix handler selection logic ([97a08b1](https://github.com/chelsea-apps/notification/commit/97a08b1b73cda18b25ba542a86ff62ac8bb02a52))
+
 ## [2.2.0-beta.1](https://github.com/chelsea-apps/notification/compare/v2.2.0-beta.0...v2.2.0-beta.1) (2022-03-31)
 
 ## [2.2.0-beta.0](https://github.com/chelsea-apps/notification/compare/v2.1.0-1...v2.2.0-beta.0) (2022-03-31)
