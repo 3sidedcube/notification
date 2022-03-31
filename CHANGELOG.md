@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0-beta.3](https://github.com/chelsea-apps/notification/compare/v2.2.0-beta.2...v2.2.0-beta.3) (2022-03-31)
+
+
+### Features
+
+* Pass users to deliver custom notifications to ([41f60de](https://github.com/chelsea-apps/notification/commit/41f60de84d3a0061c49cabe30d28354368a1b4b4))
+
 ## [2.2.0-beta.2](https://github.com/chelsea-apps/notification/compare/v2.2.0-beta.1...v2.2.0-beta.2) (2022-03-31)
 
 
