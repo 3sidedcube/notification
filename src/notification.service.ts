@@ -151,7 +151,7 @@ export class NotificationService implements INotificationService {
     }
 
     private isMethodEnabled(notification: INotification, method: NotificationMethod) {
-        return notification.methods.includes(NotificationMethod.Email);
+        return notification.methods.includes(method);
     }
 
     private isTextGiven(text?: string | null): boolean {
