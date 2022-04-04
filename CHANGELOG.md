@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/chelsea-apps/notification/compare/v2.2.0...v2.2.1) (2022-04-04)
+
+
+### Bug Fixes
+
+* Fix error when custom config is not supplied ([76b27d5](https://github.com/chelsea-apps/notification/commit/76b27d5df062ae426092b5f994ceaa051e743975))
+
 ## [2.2.0](https://github.com/chelsea-apps/notification/compare/v2.1.0-1...v2.2.0) (2022-04-04)
 
 
