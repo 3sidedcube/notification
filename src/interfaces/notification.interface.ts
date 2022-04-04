@@ -18,12 +18,16 @@ export enum NotificationMethod {
      * Send text to user's mobile
      */
     SMS = 'SMS',
+    /**
+     * Send text to custom notification handler
+     */
+    Custom = 'Custom',
 }
 
 /**
  * Notification object to send to user(s)
  */
-export interface INotification {
+export interface INotification<T = Record<string, any>> {
     /**
      * Delivery method(s) to use to send notification
      */
@@ -91,4 +95,6 @@ export interface INotification {
      * Optional calendar attachment
      */
     calendar?: IEmailCalendar;
+
+    data?: T;
 }

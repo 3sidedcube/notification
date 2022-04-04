@@ -2,7 +2,7 @@ export type IPushOptions =
     | { enabled: false }
     | {
           /**
-           * Enable/disable SMS (default `true`)
+           * Enable/disable Push (default `true`)
            */
           enabled?: true;
           /**

@@ -209,6 +209,70 @@ class TestNotification implements INotification {
 Normally we use Mustache to template emails and MJML to compile to HTML. This makes it easier to send personalised, responsive emails. However these are not required.
 The `NotificationService` expects the `body` or `emailBody` parameters to be plain text or HTML, so any templating and email markup libraries can be used (provided they compile to HTML).
 
+#### Custom Notification Handlers
+
+Custom handlers can be registered to listen for notifications with the `NotificationMethod.Custom` capability registered.
+These handlers will receieve the whole notification payload and any custom data to handle in any way they want.
+
+**Example Notification**
+
+```typescript
+import { INotification, INotificationUser, NotificationMethod } from '@chelsea-apps/notification';
+
+export class TestNotification implements INotification {
+    methods: NotificationMethod[] = [NotificationMethod.Custom];
+
+    to: INotificationUser[] = [
+        {
+            email: 'ben@chelsea-apps.com',
+        },
+    ];
+
+    subject = 'Subject';
+    subtitle = 'Subtitle';
+    body = 'Body';
+    pushPayload?: Record<string, any> = { push: 'payload' };
+    data?: Record<string, any> = {
+        data: 'any',
+    };
+}
+```
+
+To register a custom handler, use the `@CustomNotificationProcessor()` decorator to create a _Consumer_ class.
+
+**Example class to send to Onesignal**
+
+```typescript
+import { CustomNotificationProcessor, ICustomPayload, INotificationUser } from '@chelsea-apps/notification';
+import { OnesignalService } from '@chelsea-apps/onesignal';
+import { Process } from '@nestjs/bull';
+import { Job } from 'bull';
+
+@CustomNotificationProcessor()
+export class OnesignalConsumer {
+    constructor(private readonly onesignalService: OnesignalService) {}
+
+    @Process()
+    async send({ data }: Job<ICustomPayload>) {
+        const ids = data.data?.to
+            ?.filter((to: INotificationUser) => to.id)
+            .map((to: INotificationUser) => to.id) as string[];
+
+        if (ids.length === 0) return;
+        if (!data.push) return;
+
+        await this.onesignalService.send(ids, {
+            title: data.push.alert.title ?? '',
+            subtitle: data.push.alert.subtitle,
+            message: data.push.alert.body,
+            payload: data.push.payload,
+            threadId: data.data?.threadId,
+            url: data.data?.url,
+        });
+    }
+}
+```
+
 ### Documentation
 
 Detailed documentation of the methods can be found in the `documentation` folder. They can be hosted locally by running

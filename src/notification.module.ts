@@ -87,6 +87,9 @@ export class NotificationModule {
                 {
                     name: 'push',
                 },
+                {
+                    name: 'custom',
+                },
             ),
         ];
     }

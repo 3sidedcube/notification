@@ -1,5 +1,10 @@
 export interface INotificationUser {
     /**
+     * User's platform ID
+     */
+    id?: string;
+
+    /**
      * User's email
      */
     email?: string;
