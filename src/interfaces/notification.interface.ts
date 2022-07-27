@@ -44,6 +44,11 @@ export interface INotification<T = Record<string, any>> {
     from?: string;
 
     /**
+     * Email reply to address
+     */
+    replyTo?: string;
+
+    /**
      * Header item
      * @description This is used for the following:
      * - **Email**: Email subject
