@@ -170,6 +170,7 @@ export class NotificationService implements INotificationService {
             subject: notification.subject!,
             body: notification.emailBody ?? notification.body ?? '',
             from: notification.from ?? from,
+            replyTo: notification.replyTo,
             calendar: notification.calendar,
         };
     }
