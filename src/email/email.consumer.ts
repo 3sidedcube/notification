@@ -40,7 +40,7 @@ export class EmailConsumer {
      * @param body Email HTML body
      */
     @Process()
-    async send({ data: { to, subject, body, from, calendar } }: Job<IEmailPayload>): Promise<any> {
+    async send({ data: { to, subject, body, from, replyTo, calendar } }: Job<IEmailPayload>): Promise<any> {
         if (this.options.email.enabled === false) return this.options.logger?.warn('Emails are disabled');
 
         this.options.logger?.debug('Email payload received', { to, subject, from, calendar });
@@ -90,6 +90,7 @@ export class EmailConsumer {
             from,
             to,
             subject,
+            replyTo,
             html: body,
             ...(calendarEvent && calendarContent
                 ? {

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0-beta.0](https://github.com/chelsea-apps/notification/compare/v2.2.1...v2.3.0-beta.0) (2022-07-27)
+
+
+### Features
+
+* **email:** Add reply to field to emails ([ba9cd12](https://github.com/chelsea-apps/notification/commit/ba9cd12cbec5410b42360928edde2cc6c3307211))
+
 ### [2.2.1](https://github.com/chelsea-apps/notification/compare/v2.2.0...v2.2.1) (2022-04-04)
 
 

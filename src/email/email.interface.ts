@@ -18,6 +18,10 @@ export interface IEmailPayload {
      */
     from: string;
     /**
+     * Email reply to address
+     */
+    replyTo?: string;
+    /**
      * Optional calendar attachment
      */
     calendar?: IEmailCalendar;
