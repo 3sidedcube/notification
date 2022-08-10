@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.5](https://github.com/chelsea-apps/notification/compare/v3.0.0-beta.4...v3.0.0-beta.5) (2022-08-10)
+
+
+### Bug Fixes
+
+* **push:** Fix incorrect APNS and FCM logic ([1aa0109](https://github.com/chelsea-apps/notification/commit/1aa0109fd441a61c40a81170b4723bf61bbc62e3))
+
 ## [3.0.0-beta.4](https://github.com/chelsea-apps/notification/compare/v3.0.0-beta.3...v3.0.0-beta.4) (2022-08-10)
 
 
