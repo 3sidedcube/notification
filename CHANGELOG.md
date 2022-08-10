@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.1](https://github.com/chelsea-apps/notification/compare/v3.0.0-beta.0...v3.0.0-beta.1) (2022-08-10)
+
+
+### Bug Fixes
+
+* **push:** Replace list of device token strings with type objects ([e5ab804](https://github.com/chelsea-apps/notification/commit/e5ab8049e8bde65fa58d0a3c8d206e03c8529449))
+
 ## [3.0.0-beta.0](https://github.com/chelsea-apps/notification/compare/v2.3.0...v3.0.0-beta.0) (2022-08-10)
 
 
