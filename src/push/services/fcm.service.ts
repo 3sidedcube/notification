@@ -11,7 +11,7 @@ export class FcmService implements IPushService {
     private app: admin.app.App;
 
     constructor(@Inject(NOTIFICATION_OPTIONS) private options: NotificationOptions) {
-        if (options.push.enabled === false) return;
+        if (options.push.enabled === false || !options.push.fcm) return;
 
         this.app = admin.initializeApp({
             credential: admin.credential.cert(options.push.fcm),
@@ -19,6 +19,10 @@ export class FcmService implements IPushService {
     }
 
     async send(to: string[], { alert, options, payload }: Omit<IPushPayload, 'to'>): Promise<void> {
+        if (this.options.push.enabled === false || this.options.push.fcm) {
+            this.options.logger?.warn('FCM Push notifications are disabled');
+            return;
+        }
         const notification: MessagingPayload = {
             notification: {
                 title: alert.title,

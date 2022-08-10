@@ -28,7 +28,7 @@ export type IPushOptions =
           /**
            * Apple Push Notification Service details
            */
-          apns: {
+          apns?: {
               /**
                * Apple key with APNS enabled
                */
@@ -49,7 +49,7 @@ export type IPushOptions =
           /**
            * FCM service account details
            */
-          fcm: {
+          fcm?: {
               projectId: string;
               privateKey: string;
               clientEmail: string;

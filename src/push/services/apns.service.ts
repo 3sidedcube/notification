@@ -10,7 +10,7 @@ export class ApnsService implements IPushService {
     private provider?: Provider;
 
     constructor(@Inject(NOTIFICATION_OPTIONS) private options: NotificationOptions) {
-        if (options.push.enabled === false) return;
+        if (options.push.enabled === false || !options.push.apns) return;
 
         this.provider = new Provider({
             production: options.push.production,
@@ -26,8 +26,8 @@ export class ApnsService implements IPushService {
     }
 
     async send(to: string[], { alert, options, payload }: Omit<IPushPayload, 'to'>): Promise<void> {
-        if (this.options.push.enabled === false) {
-            this.options.logger?.warn('Push notifications are disabled');
+        if (this.options.push.enabled === false || this.options.push.apns) {
+            this.options.logger?.warn('APNS Push notifications are disabled');
             return;
         }
 
