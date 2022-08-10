@@ -8,4 +8,4 @@ export * from './custom-options.interface';
 export * from './notification.interface';
 export * from './user.interface';
 export * from '../email/email-calendar.interface';
-export { IPushNotificationOptions } from '../push/push.interface';
+export { IPushNotificationOptions, IPushDevice } from '../push/push.interface';
