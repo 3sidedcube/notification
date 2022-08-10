@@ -7,10 +7,12 @@ import { createNotificationProviders } from './notification.providers';
 import { EmailConsumer } from './email/email.consumer';
 import { SmsConsumer } from './sms/sms.consumer';
 import { PushConsumer } from './push/push.consumer';
+import { ApnsService } from './push/services/apns.service';
+import { FcmService } from './push/services/fcm.service';
 
 @Global()
 @Module({
-    providers: [NotificationService, EmailConsumer, SmsConsumer, PushConsumer],
+    providers: [NotificationService, EmailConsumer, SmsConsumer, PushConsumer, ApnsService, FcmService],
     exports: [NotificationService],
 })
 export class NotificationModule {

@@ -46,4 +46,12 @@ export type IPushOptions =
                */
               topic: string;
           };
+          /**
+           * FCM service account details
+           */
+          fcm: {
+              projectId: string;
+              privateKey: string;
+              clientEmail: string;
+          };
       };

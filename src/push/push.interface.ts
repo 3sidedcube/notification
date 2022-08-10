@@ -1,5 +1,16 @@
 import { ApsSound } from '@parse/node-apn';
 
+export interface IPushDevice {
+    /**
+     * Android or iOS device token
+     */
+    token: string;
+    /**
+     * Device type (Android/iOS)
+     */
+    type: 'IOS' | 'ANDROID';
+}
+
 export interface IPushNotificationOptions {
     /**
      * Notification category
@@ -27,7 +38,7 @@ export interface IPushPayload {
     /**
      * List of device tokens
      */
-    to: string[];
+    to: IPushDevice[];
 
     /**
      * Alert details
