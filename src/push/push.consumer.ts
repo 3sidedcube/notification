@@ -32,6 +32,7 @@ export class PushConsumer {
     async send({ data: { to, ...payload } }: Job<IPushPayload>): Promise<any> {
         let iosDevices = to.filter((device) => device.type === 'IOS').map((device) => device.token);
         let androidDevices = to.filter((device) => device.type === 'ANDROID').map((device) => device.token);
+        this.options.logger?.debug('Devices', { iosDevices, androidDevices });
 
         if (iosDevices.length > 0) await this.apnsService.send(iosDevices, payload);
 

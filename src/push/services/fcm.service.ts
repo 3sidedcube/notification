@@ -22,6 +22,7 @@ export class FcmService implements IPushService {
     }
 
     async send(to: string[], { alert, options, payload }: Omit<IPushPayload, 'to'>): Promise<void> {
+        console.log('[FCM] SEND');
         if (this.options.push.enabled === false || !this.options.push.fcm) {
             this.options.logger?.warn('FCM Push notifications are disabled');
             return;
@@ -29,10 +30,12 @@ export class FcmService implements IPushService {
 
         let body = alert.body;
 
+        console.log('[FCM] SUBTITLE');
         if (alert.subtitle?.length > 0 && this.options.push.placeSubtitleInBody) {
             body = `${alert.subtitle} | ${alert.body}`;
         }
 
+        console.log('[FCM] BUILD NOTIFICATION');
         const notification: MessagingPayload = {
             notification: {
                 body,
@@ -45,6 +48,8 @@ export class FcmService implements IPushService {
                 ...payload,
             },
         };
+
+        console.log('[FCM] SEND NOTIFICATION');
 
         try {
             const res = await this.app.messaging().sendToDevice(to, notification);
