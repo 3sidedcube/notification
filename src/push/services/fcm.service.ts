@@ -26,10 +26,17 @@ export class FcmService implements IPushService {
             this.options.logger?.warn('FCM Push notifications are disabled');
             return;
         }
+
+        let body = alert.body;
+
+        if (alert.subtitle?.length > 0 && this.options.push.placeSubtitleInBody) {
+            body = `${alert.subtitle} | ${alert.body}`;
+        }
+
         const notification: MessagingPayload = {
             notification: {
+                body,
                 title: alert.title,
-                body: alert.body,
                 badge: !Number.isNaN(options.badge) ? String(options.badge) : undefined,
                 sound: typeof options.sound === 'string' ? options.sound : options.sound.name,
             },

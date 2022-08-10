@@ -26,6 +26,12 @@ export type IPushOptions =
            */
           requestTimeout?: number;
           /**
+           * Android does not have support for subtitles.
+           * To match iOS behaviour, the subtitle can be placed before the body.
+           * @default false
+           */
+          placeSubtitleInBody?: boolean;
+          /**
            * Apple Push Notification Service details
            */
           apns?: {
