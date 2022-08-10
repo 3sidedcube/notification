@@ -182,7 +182,7 @@ export class NotificationService implements INotificationService {
      * @returns Payload object
      */
     private buildPushPayload(to: INotificationUser[], notification: INotification): IPushPayload {
-        const deviceTokens = to.map((user) => user?.deviceToken).filter((token) => token) as string[];
+        const deviceTokens = to.map((user) => user?.deviceToken).filter((token) => token);
 
         return {
             to: deviceTokens,

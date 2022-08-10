@@ -1,3 +1,5 @@
+import { IPushDevice } from '../push/push.interface';
+
 export interface INotificationUser {
     /**
      * User's platform ID
@@ -17,5 +19,5 @@ export interface INotificationUser {
     /**
      * User's push notification token
      */
-    deviceToken?: string;
+    deviceToken?: IPushDevice;
 }
