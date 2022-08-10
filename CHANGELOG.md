@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.2](https://github.com/chelsea-apps/notification/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2022-08-10)
+
+
+### Bug Fixes
+
+* **push:** Export device token interface ([c9cd758](https://github.com/chelsea-apps/notification/commit/c9cd758bb88b049afcb9cd2cbcea21b862d92a70))
+
 ## [3.0.0-beta.1](https://github.com/chelsea-apps/notification/compare/v3.0.0-beta.0...v3.0.0-beta.1) (2022-08-10)
 
 
