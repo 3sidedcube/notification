@@ -26,7 +26,7 @@ export class ApnsService implements IPushService {
     }
 
     async send(to: string[], { alert, options, payload }: Omit<IPushPayload, 'to'>): Promise<void> {
-        if (this.options.push.enabled === false || this.options.push.apns) {
+        if (this.options.push.enabled === false || !this.options.push.apns) {
             this.options.logger?.warn('APNS Push notifications are disabled');
             return;
         }

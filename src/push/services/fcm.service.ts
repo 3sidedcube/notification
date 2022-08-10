@@ -22,7 +22,7 @@ export class FcmService implements IPushService {
     }
 
     async send(to: string[], { alert, options, payload }: Omit<IPushPayload, 'to'>): Promise<void> {
-        if (this.options.push.enabled === false || this.options.push.fcm) {
+        if (this.options.push.enabled === false || !this.options.push.fcm) {
             this.options.logger?.warn('FCM Push notifications are disabled');
             return;
         }
