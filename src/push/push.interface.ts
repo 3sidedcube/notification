@@ -60,5 +60,9 @@ export interface IPushPayload {
 
     options: IPushNotificationOptions;
 
-    payload?: Record<string, any>;
+    /**
+     * Data payload to deliver.
+     * Must be a flat object for FCM to deliver.
+     */
+    payload?: Record<string, string>;
 }
