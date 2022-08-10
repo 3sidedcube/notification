@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.4](https://github.com/chelsea-apps/notification/compare/v3.0.0-beta.3...v3.0.0-beta.4) (2022-08-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* **push:** Only allow flat payloads to maintain compatibility between APNS and FCM
+
+### Features
+
+* **push:** Add support for subtitles in FCM, with customisable options ([f347347](https://github.com/chelsea-apps/notification/commit/f347347f903c4a9538ac26fb8cd4e1ecafcef11f))
+* **push:** Only allow flat payloads to maintain compatibility between APNS and FCM ([6ee7851](https://github.com/chelsea-apps/notification/commit/6ee785146c5d678641bf50ff10a592a4c883f779))
+
+
+### Bug Fixes
+
+* **push:** Format FCM private key before using ([1e64883](https://github.com/chelsea-apps/notification/commit/1e6488358f7ad2d28f41bda2f974420e57010f18))
+
 ## [3.0.0-beta.3](https://github.com/chelsea-apps/notification/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2022-08-10)
 
 

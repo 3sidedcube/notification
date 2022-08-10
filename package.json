@@ -1,6 +1,6 @@
 {
     "name": "@chelsea-apps/notification",
-    "version": "3.0.0-beta.3",
+    "version": "3.0.0-beta.4",
     "description": "Notifications libraries for Chelsea Apps projects, providing email, SMS and push notification support",
     "main": "dist/index",
     "types": "dist/index",
