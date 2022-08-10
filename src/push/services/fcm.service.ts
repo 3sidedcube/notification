@@ -14,7 +14,10 @@ export class FcmService implements IPushService {
         if (options.push.enabled === false || !options.push.fcm) return;
 
         this.app = admin.initializeApp({
-            credential: admin.credential.cert(options.push.fcm),
+            credential: admin.credential.cert({
+                ...options.push.fcm,
+                privateKey: options.push.fcm.privateKey.replace(/\\n/g, '\n'),
+            }),
         });
     }
 
