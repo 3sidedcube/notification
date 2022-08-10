@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.0](https://github.com/chelsea-apps/notification/compare/v2.3.0...v3.0.0-beta.0) (2022-08-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* **push:** Add support for FCM and APNS push notifications
+
+### Features
+
+* **push:** Add support for FCM and APNS push notifications ([17bece3](https://github.com/chelsea-apps/notification/commit/17bece35ef81509425938f4eb9b4576d7d25a655))
+
 ## [2.3.0](https://github.com/chelsea-apps/notification/compare/v2.2.1...v2.3.0) (2022-07-27)
 
 ## [2.3.0-beta.0](https://github.com/chelsea-apps/notification/compare/v2.2.1...v2.3.0-beta.0) (2022-07-27)
