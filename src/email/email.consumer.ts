@@ -57,6 +57,7 @@ export class EmailConsumer {
                 description: calendar.description,
                 location: calendar.location,
                 ...(calendar.url ? { url: calendar.url } : {}),
+                ...(calendar.status ? { status: calendar.status } : {}),
                 // ...(calendar.organizer
                 //     ? {
                 //           organizer: {
