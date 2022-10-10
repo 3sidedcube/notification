@@ -1,3 +1,5 @@
+import { ICalEventStatus } from 'ical-generator';
+
 export interface IEmailCalendar {
     prodId?: string;
     id?: string;
@@ -13,4 +15,5 @@ export interface IEmailCalendar {
         mailTo: string;
     };
     fileName?: string;
+    status?: ICalEventStatus;
 }
