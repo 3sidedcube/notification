@@ -1,6 +1,6 @@
 {
     "name": "@chelsea-apps/notification",
-    "version": "2.3.3",
+    "version": "2.3.4",
     "description": "Notifications libraries for Chelsea Apps projects, providing email, SMS and push notification support",
     "main": "dist/index",
     "types": "dist/index",
@@ -33,8 +33,8 @@
         "@types/luxon": "^1.27.0",
         "@types/node": "^15.12.2",
         "@types/nodemailer": "^6.4.1",
-        "@typescript-eslint/eslint-plugin": "^4.22.1",
-        "@typescript-eslint/parser": "^4.22.1",
+        "@typescript-eslint/eslint-plugin": "^5.39.0",
+        "@typescript-eslint/parser": "^5.39.0",
         "dayjs": "^1.10.5",
         "eslint": "^8.25.0",
         "eslint-config-prettier": "^8.3.0",
